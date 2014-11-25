@@ -2,6 +2,7 @@ package bitset
 
 import "math"
 
+// Bitset struct to wrap underlying bits
 type Bitset struct {
 	n    uint64
 	bits []uint64

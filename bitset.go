@@ -45,6 +45,13 @@ func (b *Bitset) Unset(i uint64) {
 	b.bits[i>>logWordSize] &^= 1 << (i & (wordSize - 1))
 }
 
+// Clear will clear the entire bitset by setting all bits back to 0
+func (b *Bitset) Clear() {
+	for i := range b.bits {
+		b.bits[i] = 0
+	}
+}
+
 func (b *Bitset) bitsLen() uint64 {
 	return uint64(len(b.bits))
 }

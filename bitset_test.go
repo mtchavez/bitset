@@ -117,3 +117,19 @@ func Test_Unset(t *testing.T) {
 		t.Errorf("Expected 3 to be unset")
 	}
 }
+
+func Test_Clear(t *testing.T) {
+	b := New(4)
+	b.Set(1)
+	for i := range b.bits {
+		if b.bits[i] == 0 {
+			t.Errorf("Bits should be set before clearing")
+		}
+	}
+	b.Clear()
+	for i := range b.bits {
+		if b.bits[i] != 0 {
+			t.Errorf("Bits should be set set to zero after clearing")
+		}
+	}
+}

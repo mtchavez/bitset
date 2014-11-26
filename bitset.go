@@ -40,6 +40,11 @@ func (b *Bitset) Set(i uint64) {
 	b.bits[i>>logWordSize] |= 1 << (i & (wordSize - 1))
 }
 
+// Unset bit i in the bitset ie. set to 0
+func (b *Bitset) Unset(i uint64) {
+	b.bits[i>>logWordSize] &^= 1 << (i & (wordSize - 1))
+}
+
 func (b *Bitset) bitsLen() uint64 {
 	return uint64(len(b.bits))
 }

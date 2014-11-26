@@ -108,3 +108,12 @@ func Test_Test_found(t *testing.T) {
 		t.Errorf("Expected to find 3")
 	}
 }
+
+func Test_Unset(t *testing.T) {
+	b := New(4)
+	b.Set(3)
+	b.Unset(3)
+	if b.Test(3) {
+		t.Errorf("Expected 3 to be unset")
+	}
+}

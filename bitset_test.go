@@ -35,3 +35,40 @@ func Test_New(t *testing.T) {
 		t.Errorf("Length of bits should have been %+v but got %+v", wordsNeeded(500), b.bits)
 	}
 }
+
+func Test_Set(t *testing.T) {
+	b := New(5)
+	b.Set(4)
+	if b.bits[4>>logWordSize] != 1<<4 {
+		t.Errorf("Expected bit 4 to have been set but got %b", b.bits)
+	}
+}
+
+func Test_Set_greaterThanLength(t *testing.T) {
+	b := New(4)
+	b.Set(6)
+	if b.bits[6>>logWordSize] != 1<<6 {
+		t.Errorf("Expected bit 5 to have been set but got %b", b.bits)
+	}
+
+	if b.length != 7 {
+		t.Errorf("Expected length to be increased to 7 but got %+v", b.length)
+	}
+}
+
+func Test_Set_growBits(t *testing.T) {
+	b := New(4)
+	b.Set(32)
+	b.Set(64)
+	if b.bits[32>>wordSize] != 1<<32 {
+		t.Errorf("Expected bit 32 to have been set but got %b", b.bits)
+	}
+
+	if b.bits[64>>logWordSize] != 1<<(64&(wordSize-1)) {
+		t.Errorf("Expected bit 64 to have been set but got %b", b.bits[64>>wordSize])
+	}
+
+	if b.length != 65 {
+		t.Errorf("Expected length to be increased to 65 but got %+v", b.length)
+	}
+}

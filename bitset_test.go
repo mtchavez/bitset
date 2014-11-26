@@ -72,3 +72,14 @@ func Test_Set_growBits(t *testing.T) {
 		t.Errorf("Expected length to be increased to 65 but got %+v", b.length)
 	}
 }
+
+func Test_growBits(t *testing.T) {
+	b := New(4)
+	grown := b.growBits(64)
+	if !grown {
+		t.Errorf("Expected bits to be grown")
+	}
+	if b.length != 65 {
+		t.Errorf("Expected length to be increased to 65 but got %+v", b.length)
+	}
+}

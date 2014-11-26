@@ -27,6 +27,13 @@ func New(length uint64) *Bitset {
 	return &Bitset{length, make([]uint64, wordsNeeded(length))}
 }
 
+func (b *Bitset) Test(i uint64) bool {
+	if i >= b.length {
+		return false
+	}
+	return b.bits[i>>logWordSize]&(1<<(i&(wordSize-1))) != 0
+}
+
 // Set bit i in the bitset to a 1
 func (b *Bitset) Set(i uint64) {
 	b.growBits(i)
